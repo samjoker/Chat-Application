@@ -1,3 +1,4 @@
+// alert('welcomehome');
 function startChat(id) {
 	document
 		.getElementById('chat-startup')
@@ -64,9 +65,33 @@ function iconSendMsg() {
 // ? FireBase initaiallization
 
 function signIn() {
-	const provider = new firebase.auth.GoogleAuthProvider();
+	let provider = new firebase.auth.GoogleAuthProvider();
 	firebase.auth().signInWithPopup(provider);
 
+	console.log(provider);
 	// const secondProvider = new firebase.auth.FacebookAuthProvider();
 	// firebase.auth().signInWithPopup(secondProvider);
 }
+
+function signOut() {
+	firebase.auth().signOut();
+}
+function onFirebaseStateChanged() {
+	firebase
+		.auth()
+		.onAuthStateChanged(onStateChanged)
+		.catch(function (error) {
+			console.log(error);
+		});
+}
+function onStateChanged(user) {
+	if (user) {
+		alert(
+			firebase.auth().currentUser.email +
+				'\n' +
+				firebase.auth().currentUser.displayName
+		);
+	}
+}
+///////////////////call auth state changed
+onFirebaseStateChanged();
