@@ -127,7 +127,6 @@ body {
 }
 
 #enterMessage {
-	overflow: hidden;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	/* z-index: inherit; */
