@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link
+			rel="stylesheet"
+			href="./bootstrap-5.1.0-dist/bootstrap-5.1.0-dist/css/bootstrap.min.css"
+		/>
+		<script
+			type="module"
+			src="bootstrap-5.1.0-dist/bootstrap-5.1.0-dist/js/bootstrap.min.js"
+		></script>
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles/style.css" />
+		<script
+			src="https://kit.fontawesome.com/8ce8919835.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Chat Application</title>
+	</head>
+	<body>
+		<span class="top"></span>
+		<div
+			class="container-fluid bg-white chat-box shadow-lg parent-container"
+		>
+			<div class="row h-100">
+				<div
+					id="contact-list"
+					class="col-md-4 pr-0 pl-0 d-none d-md-block"
+				>
+					<div class="card">
+						<div class="card-header">
+							<div class="row">
+								<div
+									class="col-10 col-sm-10 col-md-10 col-lg-10"
+								>
+									<img
+										class="profile-img"
+										src="./img/6.jpg"
+										alt="Profile-img"
+									/>
+								</div>
+								<div class="col-2 col-sm-2 col-md-2">
+									<span
+										class="fas fa-arrow-left d-md-none"
+										style="cursor: pointer"
+										onclick="hideNewChat()"
+									></span>
+								</div>
+							</div>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li
+								class="list-group-item list-group-item-action"
+								style="background: #f8f8f8"
+							>
+								<input
+									class="form-control form-search"
+									type="text"
+									placeholder="Search"
+									name=""
+									id=""
+								/>
+							</li>
+							<li
+								onclick="startChat(1)"
+								class="list-group-item list-group-item-action"
+								style="cursor: pointer"
+							>
+								<div class="row" style="width: 100%">
+									<div
+										class="col-3 col-sm-3 col-md-3 col-lg-2"
+									>
+										<img
+											class="user-img"
+											src="./img/6.jpg"
+											alt="Profile Image"
+										/>
+									</div>
+									<div
+										class="col-8 col-sm-8 col-md-6 col-lg-9"
+									>
+										<div class="user-name">User Name</div>
+										<div class="user-text">
+											lorem Lorem Lorem Lorem Lorem
+										</div>
+									</div>
+								</div>
+							</li>
+							<li
+								class="list-group-item list-group-item-action"
+								style="cursor: pointer"
+							>
+								<div class="row">
+									<div
+										class="col-3 col-sm-3 col-md-3 col-lg-2"
+									>
+										<img
+											class="user-img"
+											src="./img/6.jpg"
+											alt="Profile Image"
+										/>
+									</div>
+									<div
+										class="col-8 col-sm-8 col-md-6 col-lg-9"
+									>
+										<div class="user-name">User Name</div>
+										<div class="user-text">
+											lorem Lorem Lorem Lorem Lorem
+										</div>
+									</div>
+								</div>
+							</li>
+							<li
+								class="list-group-item list-group-item-action"
+								style="cursor: pointer"
+							>
+								<div class="row">
+									<div
+										class="col-3 col-sm-3 col-md-3 col-lg-2"
+									>
+										<img
+											class="user-img"
+											src="./img/6.jpg"
+											alt="Profile Image"
+										/>
+									</div>
+									<div
+										class="col-8 col-sm-8 col-md-6 col-lg-9"
+									>
+										<div class="user-name">User Name</div>
+										<div class="user-text">
+											lorem Lorem Lorem Lorem Lorem
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- !asdasdasdasdasdasdasdasdasdasdasdasdsadsadsadsdsadsadsadsdasdasdsd-->
+
+				<div
+					id="chat-panel"
+					class="col-8 col-sm-8 col-md-8 pl-0 pr-0"
+					style="display: none"
+				>
+					<div class="card">
+						<div class="card-header">
+							<div class="row">
+								<div class="col-1 col-sm-1 col-md-1 col-lg-1">
+									<span
+										onclick="startNewChat()"
+										class="fas fa-list mt-3"
+										style="cursor: pointer"
+									></span>
+								</div>
+								<div class="col-2 col-sm-2 col-md-2 col-lg-1">
+									<img
+										src="./img/6.jpg"
+										alt="UserProfile"
+										class="user-img"
+									/>
+								</div>
+								<div class="col-5 col-sm-5 col-md-5 col-lg-6">
+									<div class="chat-user-name">User Name</div>
+									<div class="chat-user-text">
+										last seen 12/12/21
+									</div>
+								</div>
+								<div class="col-4 col-sm-4 col-md-4 col-lg-4">
+									<i class="fas fa-search icons"></i>
+									<i class="fas fa-paperclip icons"></i>
+									<i class="fas fa-ellipsis-v icons"></i>
+								</div>
+							</div>
+						</div>
+						<div class="card-body" id="enterMessage">
+							<div class="row">
+								<div class="col-2 col-sm-1 col-md-1">
+									<img
+										src="./img/6.jpg"
+										alt="User-img"
+										class="user-chat-img"
+									/>
+								</div>
+								<div class="col-6 col-sm-7 col-md-7">
+									<p class="recived-msg">
+										Recived Message lorem ipsum d Lorem
+										ipsum dolor sit amet consectetur
+										adipisicing elit. Delectus voluptatem,
+										explicabo ducimus odio possimus iusto
+										expedita debitis qui nulla fugit numquam
+										praesentium eos laborum quod rem
+										aliquid, hic deleniti perspiciatis!<span
+											class="text-time"
+											>12:00pm</span
+										>
+									</p>
+								</div>
+							</div>
+							<div class="row justify-content-end">
+								<div class="col-6 col-sm-7 col-md-7">
+									<p class="sent-msg">
+										sent Message lorem ipsum d Lorem ipsum
+										dolor sit amet consectetur adipisicing
+										elit. Delectus voluptatem, explicabo
+										ducimus odio possimus iusto expedita
+										debitis qui nulla fugit numquam
+										praesentium eos laborum quod rem
+										aliquid, hic deleniti perspiciatis!<span
+											class="text-time"
+											>12:00pm</span
+										>
+									</p>
+								</div>
+								<div class="col-2 col-sm-1 col-md-1">
+									<img
+										src="./img/6.jpg"
+										alt="User-img"
+										class="user-chat-img"
+									/>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer">
+							<div class="row">
+								<div
+									class="
+										col-2 col-sm-2 col-md-1 col-lg-1
+										mt-2
+									"
+								>
+									<span class="far fa-smile fa-2x"></span>
+								</div>
+								<div
+									class="
+										col-8 col-sm-8 col-md-9 col-lg-9
+										mt-1
+									"
+								>
+									<input
+										id="txtmsg"
+										onclick="enterKey()"
+										type="text"
+										placeholder="Type Here..."
+										class="form-control form-rounded"
+									/>
+								</div>
+								<div
+									class="
+										col-1 col-sm-1 col-md-1 col-lg-1
+										send-icon
+									"
+								>
+									<span
+										onclick="iconSend()"
+										class="fab fa-telegram-plane fa-2x"
+									></span>
+								</div>
+								<div
+									class="
+										col-1 col-sm-1 col-md-1 col-lg-1
+										mt-2
+									"
+								>
+									<span
+										class="fas fa-microphone fa-2x"
+									></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="chat-startup" class="text-center" style="width: 60%">
+					<i
+						class="fab fa-whatsapp whatsapp-icon"
+						style="font-size: 250px"
+					></i>
+					<h2>Select Friends to Chat</h2>
+					<a href="#" onclick="startNewChat()" class="d-md-none">
+						New Chat</a
+					>
+				</div>
+			</div>
+		</div>
+		<script src="./script/chat.js"></script>
+	</body>
+</html>

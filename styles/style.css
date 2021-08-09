@@ -1,0 +1,142 @@
+*,
+::after,
+::before {
+	padding: 0px;
+	margin: 0px;
+	/* overflow: hidden; */
+	/* box-sizing: border-box; */
+}
+
+body {
+	font-family: Segoe UI;
+	height: 100vh;
+	background: linear-gradient(90deg, #81817c, #b8b4b4);
+}
+
+.top {
+	height: 15vh;
+	width: 100%;
+	background: #009688;
+	position: fixed;
+	z-index: -1;
+}
+.chat-box {
+	width: 95%;
+	height: calc(100vh - 30px);
+	margin-top: 20px;
+	border-radius: 15px;
+}
+.profile-img {
+	width: 40px;
+	border-radius: 50%;
+	height: 40px;
+	cursor: pointer;
+	margin-left: -10px;
+}
+.user-img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.form-search,
+.form-rounded {
+	padding: 10px;
+	border-radius: 1rem;
+	outline: none;
+	box-shadow: none;
+}
+.chat-user-name,
+.user-name {
+	font-weight: 600;
+	color: #000;
+}
+.chat-user-text,
+.user-text {
+	line-height: 15px;
+	max-height: 15px;
+	font-size: 14px;
+}
+.icons {
+	font-size: 17 px;
+	margin-top: 15px;
+	margin-left: 8px;
+	padding: 5px;
+	color: #9ca1a3;
+	cursor: pointer;
+}
+#chat-startup {
+	margin: auto;
+}
+.whatsapp-icon {
+	/* margin-top: 200px; */
+	align-items: center;
+	color: #168177;
+}
+
+.user-chat-img {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.recived-msg {
+	background: #262d31;
+	color: white;
+	padding: 10px 10px;
+	font-weight: 400;
+	border-radius: 1px 15px 15px 15px;
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+}
+.text-time {
+	text-align-last: right;
+	padding: 7px;
+	color: #9ca1a3;
+	margin-top: 20px;
+	float: right;
+	/* background: red; */
+}
+.sent-msg {
+	float: right;
+	background: #056162;
+	color: white;
+	padding: 10px 10px;
+	font-weight: 400;
+	border-radius: 15px 1px 15px 15px;
+	width: 100%;
+}
+
+.send-icon {
+	z-index: 1;
+	position: relative;
+	left: -78px;
+	cursor: pointer;
+	border-radius: 50%;
+	margin-top: 8px;
+	color: #00b09b;
+	vertical-align: center;
+}
+
+.card {
+	height: 95vh;
+}
+
+#enterMessage {
+	overflow: hidden;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	/* z-index: inherit; */
+}
+
+/* !Media Quries */
+/* @media screen and (max-width: 840px) {
+	#contact-list {
+		display: none;
+	}
+	.main-chat-card {
+		display: flex;
+		flex-direction: column;
+	}
+} */
