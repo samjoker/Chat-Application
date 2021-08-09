@@ -64,9 +64,9 @@ function iconSendMsg() {
 // ? FireBase initaiallization
 
 function signIn() {
-	// const provider = new firebase.auth.GoogleAuthProvider();
-	// firebase.auth().signInWithPopup(provider);
+	const provider = new firebase.auth.GoogleAuthProvider();
+	firebase.auth().signInWithPopup(provider);
 
-	const secondProvider = new firebase.auth.FacebookAuthProvider();
-	firebase.auth().signInWithPopup(secondProvider);
+	// const secondProvider = new firebase.auth.FacebookAuthProvider();
+	// firebase.auth().signInWithPopup(secondProvider);
 }
