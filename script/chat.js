@@ -57,7 +57,16 @@ function sendMessage() {
 		.getElementById('enterMessage')
 		.scrollTo(0, document.getElementById('enterMessage').clientHeight);
 }
-console.log(document.getElementById('elementMessages'));
+
 function iconSendMsg() {
 	sendMessage();
+}
+// ? FireBase initaiallization
+
+function signIn() {
+	// const provider = new firebase.auth.GoogleAuthProvider();
+	// firebase.auth().signInWithPopup(provider);
+
+	const secondProvider = new firebase.auth.FacebookAuthProvider();
+	firebase.auth().signInWithPopup(secondProvider);
 }
