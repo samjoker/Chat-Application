@@ -57,6 +57,7 @@ function sendMessage() {
 		.getElementById('enterMessage')
 		.scrollTo(0, document.getElementById('enterMessage').clientHeight);
 }
+console.log(document.getElementById('elementMessages'));
 function iconSendMsg() {
 	sendMessage();
 }
