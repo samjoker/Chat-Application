@@ -62,36 +62,30 @@ function sendMessage() {
 function iconSendMsg() {
 	sendMessage();
 }
-// ? FireBase initaiallization
 
 function signIn() {
-	let provider = new firebase.auth.GoogleAuthProvider();
+	var provider = new firebase.auth.GoogleAuthProvider();
 	firebase.auth().signInWithPopup(provider);
-
-	console.log(provider);
-	// const secondProvider = new firebase.auth.FacebookAuthProvider();
-	// firebase.auth().signInWithPopup(secondProvider);
 }
-
 function signOut() {
 	firebase.auth().signOut();
 }
 function onFirebaseStateChanged() {
-	firebase
-		.auth()
-		.onAuthStateChanged(onStateChanged)
-		.catch(function (error) {
-			console.log(error);
-		});
+	firebase.auth().onAuthStateChanged(onStateChanged);
 }
 function onStateChanged(user) {
-	if (user) {
-		alert(
-			firebase.auth().currentUser.email +
-				'\n' +
-				firebase.auth().currentUser.displayName
-		);
-	}
+	document.getElementById('imgProfile').src =
+		firebase.auth().currentUser.photoURL;
+
+	document.getElementById('imgProfile').title =
+		firebase.auth().currentUser.displayName;
+
+	// if (user) {
+	// 	alert(
+	// 		firebase.auth().currentUser.email +
+	// 			'\n' +
+	// 			firebase.auth().currentUser.displayName
+	// 	);
+	// }
 }
-///////////////////call auth state changed
 onFirebaseStateChanged();
