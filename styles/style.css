@@ -30,6 +30,16 @@ body {
 	border-radius: 15px;
 	overflow: hidden;
 }
+.new-chat {
+	margin: 20px;
+	text-decoration: none;
+	font-size: 20px;
+}
+.signin,
+.signout {
+	margin-top: 25px;
+	margin: 10px;
+}
 .profile-img {
 	width: 40px;
 	border-radius: 50%;
