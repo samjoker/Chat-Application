@@ -1,14 +1,11 @@
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
-	apiKey: 'AIzaSyBOVkemoiGW3hWBiF9cbcaHNDFL-J4Lg5g',
-	authDomain: 'chat-application-68ff1.firebaseapp.com',
-	projectId: 'chat-application-68ff1',
-	storageBucket: 'chat-application-68ff1.appspot.com',
-	messagingSenderId: '958028751243',
-	appId: '1:958028751243:web:01f4605f3616b8747c0f8e',
-	measurementId: 'G-CR4E703V80',
+	apiKey: 'AIzaSyCF6P32nDQuE72lXHE7g4dgXKzY5UlZnCI',
+	authDomain: 'chat-app-e87fc.firebaseapp.com',
+	projectId: 'chat-app-e87fc',
+	storageBucket: 'chat-app-e87fc.appspot.com',
+	messagingSenderId: '867561759462',
+	appId: '1:867561759462:web:d8e2673527a3af11fe5127',
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
