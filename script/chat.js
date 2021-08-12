@@ -74,17 +74,50 @@ function onFirebaseStateChanged() {
 	firebase.auth().onAuthStateChanged(onStateChanged);
 }
 function onStateChanged(user) {
-	document.getElementById('imgProfile').src =
-		firebase.auth().currentUser.photoURL;
+	if (user) {
+		let userProfile = { email: '', name: '', photoURL: '' };
+		userProfile.email = firebase.auth().currentUser.email;
+		userProfile.name = firebase.auth().currentUser.displayName;
+		userProfile.photoURL = firebase.auth().currentUser.photoURL;
 
-	document.getElementById('userName').innerHTML =
-		firebase.auth().currentUser.displayName;
-	// if (user) {
-	// 	alert(
-	// 		firebase.auth().currentUser.email +
-	// 			'\n' +
-	// 			firebase.auth().currentUser.displayName
-	// 	);
-	// }
+		let db = firebase.database().ref('users');
+		let flag = false;
+
+		db.on('value', function (users) {
+			users.forEach(function (data) {
+				let user = data.val();
+				if (user.email === userProfile.email) flag = true;
+			});
+			if (flag === false) {
+				firebase.database().ref('users').push(userProfile, callback);
+			} else {
+				document.getElementById('imgProfile').src =
+					firebase.auth().currentUser.photoURL;
+				document.getElementById('userName').innerHTML =
+					firebase.auth().currentUser.displayName;
+				document.getElementById('lknSignIn').style = 'display:none';
+				document.getElementById('lknSignOut').style = '';
+			}
+		});
+	} else {
+		document.getElementById('imgProfile').src = './img/profile.png';
+
+		document.getElementById('userName').innerHTML = 'Welcome SignIn';
+
+		document.getElementById('lknSignIn').style = '';
+		document.getElementById('lknSignOut').style = 'display:none';
+	}
+}
+function callback(error) {
+	if (error) {
+		console.log(error);
+	} else {
+		document.getElementById('imgProfile').src =
+			firebase.auth().currentUser.photoURL;
+		document.getElementById('userName').innerHTML =
+			firebase.auth().currentUser.displayName;
+		document.getElementById('lknSignIn').style = 'display:none';
+		document.getElementById('lknSignOut').style = '';
+	}
 }
 onFirebaseStateChanged();
