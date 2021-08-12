@@ -65,7 +65,7 @@ function iconSendMsg() {
 
 function signIn() {
 	var provider = new firebase.auth.GoogleAuthProvider();
-	firebase.auth().signInWithPopup(provider);
+	firebase.auth().signInWithRedirect(provider);
 }
 function signOut() {
 	firebase.auth().signOut();
@@ -77,9 +77,8 @@ function onStateChanged(user) {
 	document.getElementById('imgProfile').src =
 		firebase.auth().currentUser.photoURL;
 
-	document.getElementById('imgProfile').title =
+	document.getElementById('userName').innerHTML =
 		firebase.auth().currentUser.displayName;
-
 	// if (user) {
 	// 	alert(
 	// 		firebase.auth().currentUser.email +
