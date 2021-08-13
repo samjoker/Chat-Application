@@ -1,10 +1,54 @@
-// alert('welcomehome');
-function startChat(id) {
-	document
-		.getElementById('chat-startup')
-		.setAttribute('style', 'display:none');
-	document.getElementById('chat-panel').removeAttribute('style');
-	hideNewChat();
+let currentUserKey = '';
+// !CHat functions
+
+function startChat(friendKey, friendName, friendPhoto) {
+	let db = firebase.database().ref('friend_list');
+
+	flag = false;
+	let friendList = {
+		friendId: friendKey,
+		userId: currentUserKey,
+	};
+	db.on('value', function (friends) {
+		friends.forEach(function (data) {
+			let user = data.val();
+			if (
+				(user.friendId == friendList.friendId &&
+					user.userId == friendList.userId) ||
+				(user.friendId == friendList.userId &&
+					user.userId == friendList.friendId)
+			) {
+				flag = true;
+			}
+			if (flag === false) {
+				firebase
+					.database()
+					.ref('friend_list')
+					.push(friendList, function (error) {
+						if (error) {
+							alert(error);
+						} else {
+							document
+								.getElementById('chat-startup')
+								.setAttribute('style', 'display:none');
+							document
+								.getElementById('chat-panel')
+								.removeAttribute('style');
+							hideNewChat();
+						}
+					});
+			} else {
+				document
+					.getElementById('chat-startup')
+					.setAttribute('style', 'display:none');
+				document.getElementById('chat-panel').removeAttribute('style');
+				hideNewChat();
+			}
+			////////////////////////////////////////////////////////////display Friend Name
+			document.getElementById('divChatName').innerHTML = friendName;
+			document.getElementById('divChatImg').src = friendPhoto;
+		});
+	});
 }
 
 function startNewChat() {
@@ -62,6 +106,56 @@ function sendMessage() {
 function iconSendMsg() {
 	sendMessage();
 }
+// !Firebase
+function populateFriendList() {
+	document.getElementById('lstFriend').innerHTML = `<div class="text-center">
+														<span class="spinner-border text-primary mt-5"
+														style="width:5rem;height:5rem;
+														margin:auto;"></span>
+														</div>`;
+	let db = firebase.database().ref('users');
+	let lst = '';
+	db.on('value', function (users) {
+		if (users.hasChildren()) {
+			lst = `<li
+			class="list-group-item list-group-item-action"
+			style="background: #f8f8f8">
+			<input
+				class="form-control form-search"
+				type="text"
+				placeholder="Search"
+				name=""
+				id=""
+			/>
+		</li>
+		`;
+			document.getElementById('lstFriend').innerHTML = lst;
+		}
+		users.forEach(function (data) {
+			let user = data.val();
+			if (user.email != firebase.auth().currentUser.email) {
+				lst += `<li onclick="startChat('${data.key}','${user.name}','${user.photoURL}')"
+			data-dismiss="modal"
+			class="list-group-item list-group-item-action"  style="cursor: pointer"	>
+			<div class="row" style="width: 100%">
+				<div class="col-3 col-sm-3 col-md-3 col-lg-2">
+					<img class="user-img"
+						src="${user.photoURL}"
+						alt="Profile Image"
+					/>
+				</div>
+				<div class="col-8 col-sm-8 col-md-6 col-lg-9">
+					<div class="user-name">
+						${user.name}
+					</div>
+				</div>
+			</div>
+		</li>`;
+			}
+		});
+		document.getElementById('lstFriend').innerHTML = lst;
+	});
+}
 
 function signIn() {
 	var provider = new firebase.auth.GoogleAuthProvider();
@@ -86,7 +180,10 @@ function onStateChanged(user) {
 		db.on('value', function (users) {
 			users.forEach(function (data) {
 				let user = data.val();
-				if (user.email === userProfile.email) flag = true;
+				if (user.email === userProfile.email) {
+					currentUserKey = data.key;
+					flag = true;
+				}
 			});
 			if (flag === false) {
 				firebase.database().ref('users').push(userProfile, callback);
@@ -99,6 +196,7 @@ function onStateChanged(user) {
 				document.getElementById('lknSignOut').style = '';
 			}
 		});
+		document.getElementById('lnkNewChat').classList.remove('disabled');
 	} else {
 		document.getElementById('imgProfile').src = './img/profile.png';
 
@@ -106,6 +204,7 @@ function onStateChanged(user) {
 
 		document.getElementById('lknSignIn').style = '';
 		document.getElementById('lknSignOut').style = 'display:none';
+		document.getElementById('lnkNewChat').classList.add('disabled');
 	}
 }
 function callback(error) {

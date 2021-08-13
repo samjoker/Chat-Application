@@ -104,9 +104,12 @@
 											aria-labelledby="dLabel"
 										>
 											<a
-												onclick=""
-												class="dropdown-item"
+												onclick=" populateFriendList()"
 												href="#"
+												class="dropdown-item"
+												data-toggle="modal"
+												data-target="#modalFriendList"
+												id="lnkNewChat"
 												>New Chat</a
 											>
 											<a
@@ -124,6 +127,43 @@
 												href="#"
 												>SignOut</a
 											>
+										</div>
+
+										<div
+											class="modal fade"
+											id="modalFriendList"
+										>
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="card">
+														<div
+															class="card-header"
+														>
+															Friend List.
+															<span
+																class="close"
+																data-dismiss="modal"
+																style="
+																	cursor: pointer;
+																	float: right;
+																	font-size: 1.5rem;
+																"
+																>&times;</span
+															>
+														</div>
+														<ul
+															class="
+																list-group
+																list-group-flush
+															"
+															id="lstFriend"
+															style="
+																display: inline-block;
+															"
+														></ul>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -247,13 +287,19 @@
 								</div>
 								<div class="col-2 col-sm-2 col-md-2 col-lg-1">
 									<img
+										id="divChatImg"
 										src="./img/6.jpg"
 										alt="UserProfile"
 										class="user-img"
 									/>
 								</div>
 								<div class="col-5 col-sm-5 col-md-5 col-lg-6">
-									<div class="chat-user-name">User Name</div>
+									<div
+										id="divChatName"
+										class="chat-user-name"
+									>
+										User Name
+									</div>
 									<div class="chat-user-text">
 										last seen 12/12/21
 									</div>
