@@ -1,4 +1,5 @@
 let currentUserKey = '';
+let msgChatKey = '';
 // !CHat functions
 
 function startChat(friendKey, friendName, friendPhoto) {
@@ -19,9 +20,10 @@ function startChat(friendKey, friendName, friendPhoto) {
 					user.userId == friendList.friendId)
 			) {
 				flag = true;
+				msgChatKey = data.key;
 			}
 			if (flag === false) {
-				firebase
+				msgChatKey = firebase
 					.database()
 					.ref('friend_list')
 					.push(friendList, function (error) {
@@ -36,7 +38,8 @@ function startChat(friendKey, friendName, friendPhoto) {
 								.removeAttribute('style');
 							hideNewChat();
 						}
-					});
+					})
+					.getKey();
 			} else {
 				document
 					.getElementById('chat-startup')
@@ -74,33 +77,51 @@ function enterKey() {
 		}
 	});
 }
+
 let messages;
 const textField = document.getElementById('txtmsg');
 function sendMessage() {
-	messages = `<div class="row justify-content-end">
-	<div class="col-6 col-sm-7 col-md-7 col-lg-6">
-		<p class="sent-msg">
-		${document.getElementById('txtmsg').value}	
-		<span
-				class="text-time"
-				>12:00pm</span
-			>
-		</p>
-	</div>
-	<div class="col-2 col-sm-1 col-md-1">
-		<img
-			src="./img/6.jpg"
-			alt="User-img"
-			class="user-chat-img"
-		/>
-	</div>
-</div>`;
-	document.getElementById('enterMessage').innerHTML += messages;
-	document.getElementById('txtmsg').value = '';
-	document.getElementById('txtmsg').focus();
-	document
-		.getElementById('enterMessage')
-		.scrollTo(0, document.getElementById('enterMessage').clientHeight);
+	let chatMessage = {
+		msg: document.getElementById('txtmsg').value,
+		dateTime: new Date().toLocaleString(),
+	};
+	firebase
+		.database()
+		.ref('chatMessage')
+		.child(msgChatKey)
+		.push(chatMessage, function (error) {
+			if (error) {
+				alert(error);
+			} else {
+				let messages = `<div class="row justify-content-end">
+				<div class="col-6 col-sm-7 col-md-7 col-lg-6">
+					<p class="sent-msg">
+					${document.getElementById('txtmsg').value}	
+					<span
+							class="text-time"
+							>12:00pm</span
+						>
+					</p>
+				</div>
+				<div class="col-2 col-sm-1 col-md-1">
+					<img
+						src="${firebase.auth().currentUser.photoURL}"
+						alt="User-img"
+						class="user-chat-img"
+					/>
+				</div>
+			</div>`;
+				document.getElementById('enterMessage').innerHTML += messages;
+				document.getElementById('txtmsg').value = '';
+				document.getElementById('txtmsg').focus();
+				document
+					.getElementById('enterMessage')
+					.scrollTo(
+						0,
+						document.getElementById('enterMessage').clientHeight
+					);
+			}
+		});
 }
 
 function iconSendMsg() {
