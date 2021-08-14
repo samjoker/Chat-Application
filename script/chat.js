@@ -78,6 +78,53 @@ function enterKey() {
 	});
 }
 
+function loadChatList() {
+	let db = firebase.database().ref(friend_list);
+	document.getElementById(
+		'chatList'
+	).innerHTML = `<li class="list-group-item list-group-item-action"
+													  style="background: #f8f8f8">
+													  <input class="form-control form-search"
+													  type="text"placeholder="Search" name=""
+													  id=""/>
+													</li>`;
+	db.on('value', function (list) {
+		list.forEach(function (data) {
+			let lst = data.val();
+			if (lst.friendId === curentUserKey) {
+				friendKey = lst.userId;
+			} else if (lst.userId === currentUserKey) {
+				friendKey = lst.friendId;
+			}
+			fribase
+				.database()
+				.ref('users')
+				.child(friendKey)
+				.on('value', function (data) {});
+			let user = data.val();
+			document.getElementById(
+				'chatList'
+			).innerHTML += `<li onclick="startChat('${data.key}','${user.name}','${user.photoURL}')"
+														 		class="list-group-item list-group-item-action"
+																style="cursor: pointer"
+																id="chatList">
+																<div class="row" style="width: 100%">
+																	<div class="col-3 col-sm-3 col-md-3 col-lg-2">
+																	<img class="user-img" src="${user.photoURL}" alt="Profile Image"/>
+																	</div>
+																	<div class="col-8 col-sm-8 col-md-6 col-lg-9">
+																	<div class="user-name">
+																		${user.name};
+																	</div>
+																	<div class="user-text">
+																			lorem Lorem Lorem Lorem Lorem
+																	</div>
+																	</div>
+																	</div>
+																</li>`;
+		});
+	});
+}
 let messages;
 const textField = document.getElementById('txtmsg');
 function sendMessage() {
@@ -222,8 +269,9 @@ function onStateChanged(user) {
 				document.getElementById('lknSignIn').style = 'display:none';
 				document.getElementById('lknSignOut').style = '';
 			}
+			document.getElementById('lnkNewChat').classList.remove('disabled');
 		});
-		document.getElementById('lnkNewChat').classList.remove('disabled');
+		loadChatList();
 	} else {
 		document.getElementById('imgProfile').src = './img/profile.png';
 
