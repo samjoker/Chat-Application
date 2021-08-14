@@ -137,6 +137,14 @@ body {
 .card {
 	height: 94vh;
 }
+.loti-file {
+	width: 200px;
+	height: 300px;
+	font-size: 1rem;
+	/* padding: 20px; */
+	margin: auto;
+	text-align: center;
+}
 
 #enterMessage {
 	overflow-y: scroll;

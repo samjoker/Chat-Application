@@ -128,14 +128,20 @@ function iconSendMsg() {
 	sendMessage();
 }
 // !Firebase
+// !
 function populateFriendList() {
-	document.getElementById('lstFriend').innerHTML = `<div class="text-center">
-														<span class="spinner-border text-primary mt-5"
-														style="width:5rem;height:5rem;
-														margin:auto;"></span>
-														</div>`;
+	document.getElementById('lstFriend').innerHTML = `
+										<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+										<lottie-player src="https://assets5.lottiefiles.com/packages/lf20_K1Cr3w.json"
+										 background="transparent"  speed="1"
+										 style="width: 300px;
+										  height: 300px;"
+										  loop
+										  autoplay>
+										  </lottie-player>`;
 	let db = firebase.database().ref('users');
 	let lst = '';
+
 	db.on('value', function (users) {
 		if (users.hasChildren()) {
 			lst = `<li
