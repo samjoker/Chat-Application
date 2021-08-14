@@ -14,10 +14,10 @@ function startChat(friendKey, friendName, friendPhoto) {
 		friends.forEach(function (data) {
 			let user = data.val();
 			if (
-				(user.friendId == friendList.friendId &&
-					user.userId == friendList.userId) ||
-				(user.friendId == friendList.userId &&
-					user.userId == friendList.friendId)
+				(user.friendId === friendList.friendId &&
+					user.userId === friendList.userId) ||
+				(user.friendId === friendList.userId &&
+					user.userId === friendList.friendId)
 			) {
 				flag = true;
 				msgChatKey = data.key;
@@ -79,7 +79,7 @@ function enterKey() {
 }
 
 function loadChatList() {
-	let db = firebase.database().ref(friend_list);
+	let db = firebase.database().ref('friend_list');
 	document.getElementById(
 		'chatList'
 	).innerHTML = `<li class="list-group-item list-group-item-action"
@@ -91,12 +91,12 @@ function loadChatList() {
 	db.on('value', function (list) {
 		list.forEach(function (data) {
 			let lst = data.val();
-			if (lst.friendId === curentUserKey) {
+			if (lst.friendId === currentUserKey) {
 				friendKey = lst.userId;
 			} else if (lst.userId === currentUserKey) {
 				friendKey = lst.friendId;
 			}
-			fribase
+			firebase
 				.database()
 				.ref('users')
 				.child(friendKey)
@@ -104,7 +104,7 @@ function loadChatList() {
 			let user = data.val();
 			document.getElementById(
 				'chatList'
-			).innerHTML += `<li onclick="startChat('${data.key}','${user.name}','${user.photoURL}')"
+			).innerHTML += `<li onclick= "startChat('${data.key}','${user.name}','${user.photoURL}')"
 														 		class="list-group-item list-group-item-action"
 																style="cursor: pointer"
 																id="chatList">
