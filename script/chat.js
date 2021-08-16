@@ -322,6 +322,8 @@ function onStateChanged(user) {
 			}
 
 			document.getElementById('lnkNewChat').classList.remove('disabled');
+			// document.getElementById('chat-startup').classList.add('d-none');
+			// document.getElementById('contact-list').classList.remove('d-none');
 		});
 		loadChatList();
 	} else {
@@ -332,6 +334,7 @@ function onStateChanged(user) {
 		document.getElementById('lknSignIn').style = '';
 		document.getElementById('lknSignOut').style = 'display:none';
 		document.getElementById('lnkNewChat').classList.add('disabled');
+		// document.getElementById('chat-startup').classList.remove('d-none');
 	}
 }
 function callback(error) {
