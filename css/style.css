@@ -163,3 +163,7 @@ body {
 .dropdown-toggle::after {
 	display: none !important;
 }
+/* #chatList {
+	overflow-y: scroll;
+	overflow-x: hidden;
+} */

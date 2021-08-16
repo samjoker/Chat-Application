@@ -1,15 +1,15 @@
 let currentUserKey = '';
 let msgChatKey = '';
+
 // !CHat functions
-
 function startChat(friendKey, friendName, friendPhoto) {
-	let db = firebase.database().ref('friend_list');
-
-	flag = false;
 	let friendList = {
 		friendId: friendKey,
 		userId: currentUserKey,
 	};
+
+	let db = firebase.database().ref('friend_list');
+	let flag = false;
 	db.on('value', function (friends) {
 		friends.forEach(function (data) {
 			let user = data.val();
@@ -22,35 +22,34 @@ function startChat(friendKey, friendName, friendPhoto) {
 				flag = true;
 				msgChatKey = data.key;
 			}
-			if (flag === false) {
-				msgChatKey = firebase
-					.database()
-					.ref('friend_list')
-					.push(friendList, function (error) {
-						if (error) {
-							alert(error);
-						} else {
-							document
-								.getElementById('chat-startup')
-								.setAttribute('style', 'display:none');
-							document
-								.getElementById('chat-panel')
-								.removeAttribute('style');
-							hideNewChat();
-						}
-					})
-					.getKey();
-			} else {
-				document
-					.getElementById('chat-startup')
-					.setAttribute('style', 'display:none');
-				document.getElementById('chat-panel').removeAttribute('style');
-				hideNewChat();
-			}
-			////////////////////////////////////////////////////////////display Friend Name
-			document.getElementById('divChatName').innerHTML = friendName;
-			document.getElementById('divChatImg').src = friendPhoto;
 		});
+		if (flag === false) {
+			msgChatKey = firebase
+				.database()
+				.ref('friend_list')
+				.push(friendList, function (error) {
+					if (error) alert(error);
+					else {
+						document
+							.getElementById('chat-startup')
+							.setAttribute('style', 'display:none');
+						document
+							.getElementById('chat-panel')
+							.removeAttribute('style');
+						hideNewChat();
+					}
+				})
+				.getKey();
+		} else {
+			document
+				.getElementById('chat-startup')
+				.setAttribute('style', 'display:none');
+			document.getElementById('chat-panel').removeAttribute('style');
+			hideNewChat();
+		}
+		//////////////////display Friend Name
+		document.getElementById('divChatName').innerHTML = friendName;
+		document.getElementById('divChatImg').src = friendPhoto;
 	});
 }
 
@@ -80,17 +79,19 @@ function enterKey() {
 
 function loadChatList() {
 	let db = firebase.database().ref('friend_list');
-	document.getElementById(
-		'chatList'
-	).innerHTML = `<li class="list-group-item list-group-item-action"
+	db.on('value', function (list) {
+		document.getElementById(
+			'chatList'
+		).innerHTML = `<li class="list-group-item list-group-item-action"
 													  style="background: #f8f8f8">
 													  <input class="form-control form-search"
 													  type="text"placeholder="Search" name=""
 													  id=""/>
 													</li>`;
-	db.on('value', function (list) {
+
 		list.forEach(function (data) {
 			let lst = data.val();
+			let friendKey = '';
 			if (lst.friendId === currentUserKey) {
 				friendKey = lst.userId;
 			} else if (lst.userId === currentUserKey) {
@@ -100,11 +101,11 @@ function loadChatList() {
 				.database()
 				.ref('users')
 				.child(friendKey)
-				.on('value', function (data) {});
-			let user = data.val();
-			document.getElementById(
-				'chatList'
-			).innerHTML += `<li onclick= "startChat('${data.key}','${user.name}','${user.photoURL}')"
+				.on('value', function (data) {
+					let user = data.val();
+					document.getElementById(
+						'chatList'
+					).innerHTML += `<li onclick= "startChat('${data.key}','${user.name}','${user.photoURL}')"
 														 		class="list-group-item list-group-item-action"
 																style="cursor: pointer"
 																id="chatList">
@@ -122,11 +123,13 @@ function loadChatList() {
 																	</div>
 																	</div>
 																</li>`;
+				});
 		});
 	});
 }
 let messages;
 const textField = document.getElementById('txtmsg');
+// !send mEssages functions here
 function sendMessage() {
 	let chatMessage = {
 		msg: document.getElementById('txtmsg').value,
@@ -188,7 +191,6 @@ function populateFriendList() {
 										  </lottie-player>`;
 	let db = firebase.database().ref('users');
 	let lst = '';
-
 	db.on('value', function (users) {
 		if (users.hasChildren()) {
 			lst = `<li
@@ -203,7 +205,6 @@ function populateFriendList() {
 			/>
 		</li>
 		`;
-			document.getElementById('lstFriend').innerHTML = lst;
 		}
 		users.forEach(function (data) {
 			let user = data.val();
