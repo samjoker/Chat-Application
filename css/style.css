@@ -71,6 +71,12 @@ body {
 }
 .ico {
 	padding-left: 0px;
+	display: flex;
+	padding-right: 0px;
+	justify-content: space-around;
+}
+.ico:before {
+	display: none !important;
 }
 .chat-user-text,
 .user-text {
