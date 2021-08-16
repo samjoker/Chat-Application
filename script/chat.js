@@ -212,8 +212,8 @@ function sendMessage() {
 				// 	</div>
 				// </div>`;
 				// 	document.getElementById('enterMessage').innerHTML += messages;
-				// document.getElementById('txtmsg').value = '';
-				// document.getElementById('txtmsg').focus();
+				document.getElementById('txtmsg').value = '';
+				document.getElementById('txtmsg').focus();
 				// 	document
 				// 		.getElementById('enterMessage')
 				// 		.scrollTo(
