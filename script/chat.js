@@ -320,6 +320,7 @@ function onStateChanged(user) {
 				document.getElementById('lknSignIn').style = 'display:none';
 				document.getElementById('lknSignOut').style = '';
 			}
+
 			document.getElementById('lnkNewChat').classList.remove('disabled');
 		});
 		loadChatList();

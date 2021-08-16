@@ -49,8 +49,8 @@ body {
 	margin-left: -10px;
 }
 .user-img {
-	width: 50px;
-	height: 50px;
+	width: 45px;
+	height: 45px;
 	border-radius: 50%;
 	cursor: pointer;
 }
@@ -66,6 +66,12 @@ body {
 	font-weight: 600;
 	color: #000;
 }
+.chatname {
+	padding-right: 0px;
+}
+.ico {
+	padding-left: 0px;
+}
 .chat-user-text,
 .user-text {
 	line-height: 15px;
@@ -73,10 +79,10 @@ body {
 	font-size: 14px;
 }
 .icons {
-	font-size: 17 px;
+	font-size: 17px;
 	margin-top: 15px;
-	margin-left: 8px;
-	padding: 5px;
+	margin-left: 5px;
+	padding: 2px;
 	color: #9ca1a3;
 	cursor: pointer;
 }
@@ -167,3 +173,25 @@ body {
 	overflow-y: scroll;
 	overflow-x: hidden;
 } */
+#contact-list,
+#chat-panel {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+#txtmsg {
+	width: calc(100% - 5px);
+}
+.micro {
+	margin-left: -19px;
+	color: #6d7172 ';
+
+}
+
+.clip span {
+	margin-left: 15px;
+	color: #6d7172';
+}
+.inputTxt input {
+	margin-left: 10px;
+	margin-right: -10px;
+}
