@@ -47,16 +47,19 @@ function startChat(friendKey, friendName, friendPhoto) {
 			document.getElementById('chat-panel').removeAttribute('style');
 			hideNewChat();
 		}
+		enterKey();
+		document.getElementById('txtmsg').value = '';
+		document.getElementById('txtmsg').focus();
 		//////////////////display Friend Name
 		document.getElementById('divChatName').innerHTML = friendName;
 		document.getElementById('divChatImg').src = friendPhoto;
 		/////////////////////////Display chat mEssages
 		document.getElementById('enterMessage').innerHTML = '';
-		loadChatMessages(msgChatKey);
+		loadChatMessages(msgChatKey, friendPhoto);
 	});
 }
 
-function loadChatMessages(msgChatKey) {
+function loadChatMessages(msgChatKey, friendPhoto) {
 	let db = firebase.database().ref('chatMessage').child(msgChatKey);
 
 	db.on('value', function (chats) {
@@ -68,7 +71,7 @@ function loadChatMessages(msgChatKey) {
 				displayMessages += `<div class="row">
 				<div class="col-2 col-sm-2 col-md-1">
 					<img
-						src="./img/6.jpg"
+						src="${friendPhoto}"
 						alt="User-img"
 						class="user-chat-img"
 					/>
@@ -146,15 +149,16 @@ function loadChatList() {
 			} else if (lst.userId === currentUserKey) {
 				friendKey = lst.friendId;
 			}
-			firebase
-				.database()
-				.ref('users')
-				.child(friendKey)
-				.on('value', function (data) {
-					let user = data.val();
-					document.getElementById(
-						'chatList'
-					).innerHTML += `<li onclick= "startChat('${data.key}','${user.name}','${user.photoURL}')"
+			if (friendKey != '') {
+				firebase
+					.database()
+					.ref('users')
+					.child(friendKey)
+					.on('value', function (data) {
+						let user = data.val();
+						document.getElementById(
+							'chatList'
+						).innerHTML += `<li onclick= "startChat('${data.key}','${user.name}','${user.photoURL}')"
 														 		class="list-group-item list-group-item-action"
 																style="cursor: pointer"
 																id="chatList">
@@ -172,7 +176,8 @@ function loadChatList() {
 																	</div>
 																	</div>
 																</li>`;
-				});
+					});
+			}
 		});
 	});
 }
