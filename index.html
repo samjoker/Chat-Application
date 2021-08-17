@@ -35,6 +35,10 @@
 			src="https://kit.fontawesome.com/8ce8919835.js"
 			crossorigin="anonymous"
 		></script>
+		<script
+			type="text/javascript"
+			src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"
+		></script>
 		<!-- Firebase init javascript -->
 		<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase.js"></script>
 
@@ -45,7 +49,7 @@
 		<div
 			class="container-fluid bg-white chat-box shadow-lg parent-container"
 		>
-			<div class="row h-100">
+			<div class="row">
 				<div
 					id="contact-list"
 					class="col-md-4 pr-0 pl-0 d-none d-md-block"
@@ -223,7 +227,62 @@
 									class="col-4 col-sm-4 col-md-4 col-lg-4 ico"
 								>
 									<i class="fas fa-search icons"></i>
-									<i class="fas fa-paperclip icons"></i>
+									<span class="dropdown">
+										<span
+											class="dropdown-toggle"
+											data-toggle="dropdown"
+											class=""
+											><i
+												class="fas fa-paperclip icons"
+											></i>
+										</span>
+										<div class="dropdown-menu">
+											<a
+												href="#"
+												class="dropdown-item"
+												onclick="openImage()"
+											>
+												<input
+													id="imageFile"
+													onchange="sendImage(this)"
+													type="file"
+													accept="image/*"
+													style="display: none"
+												/>
+												Image</a
+											>
+											<a
+												href="#"
+												class="dropdown-item"
+												onclick="openDocument()"
+											>
+												<input
+													id="documentFile"
+													type="file"
+													accept="*"
+													style="display: none"
+												/>
+												Document</a
+											>
+											<a
+												href="#"
+												class="dropdown-item"
+												onclick="openCamera()"
+											>
+												<input
+													id="cameraFile"
+													type="file"
+													accept="image"
+													capture="capture/*"
+													style="display: none"
+												/>
+												Camera</a
+											>
+											<a href="#" class="dropdown-item"
+												>Music</a
+											>
+										</div>
+									</span>
 									<i class="fas fa-ellipsis-v icons"></i>
 								</div>
 							</div>
@@ -292,14 +351,34 @@
 								<div
 									class="
 										col-1 col-sm-1 col-md-1 col-lg-1
-										mt-2
 										m-2
 										clip
 									"
 								>
-									<span
-										class="foot fas fa-paperclip fa-2x"
-									></span>
+									<span class="dropup">
+										<span
+											class="dropdown-toggle"
+											data-toggle="dropdown"
+											class=""
+											><i
+												class="fas fa-paperclip icons"
+											></i>
+										</span>
+										<div class="dropdown-menu">
+											<a href="#" class="dropdown-item"
+												>Image</a
+											>
+											<a href="#" class="dropdown-item"
+												>Document</a
+											>
+											<a href="#" class="dropdown-item"
+												>Camera</a
+											>
+											<a href="#" class="dropdown-item"
+												>Music</a
+											>
+										</div>
+									</span>
 								</div>
 								<div
 									class="

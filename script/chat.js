@@ -64,9 +64,16 @@ function loadChatMessages(msgChatKey, friendPhoto) {
 
 	db.on('value', function (chats) {
 		let displayMessages = '';
+
 		chats.forEach(function (data) {
 			let chat = data.val();
 			let dateTime = chat.dateTime.split(',');
+			let msg = '';
+			if (chat.msg.indexOf('base64') != -1) {
+				msg = `<img src="${chat.msg}" class="img-fluid"/>`;
+			} else {
+				msg = chat.msg;
+			}
 			if (chat.userId != currentUserKey) {
 				displayMessages += `<div class="row">
 				<div class="col-2 col-sm-2 col-md-1">
@@ -78,7 +85,7 @@ function loadChatMessages(msgChatKey, friendPhoto) {
 				</div>
 				<div class="col-6 col-sm-7 col-md-7">
 					<p class="recived-msg">
-					${chat.msg}	
+					${msg}	
 					<span title="${dateTime[0]}"class="text-time">${dateTime[1]}</span>
 					</p>
 				</div>
@@ -87,7 +94,7 @@ function loadChatMessages(msgChatKey, friendPhoto) {
 				displayMessages += `<div class="row justify-content-end">
 							<div class="col-6 col-sm-7 col-md-7 col-lg-6">
 							<p class="sent-msg">
-							${chat.msg}	
+							${msg}	
 							<span title="${dateTime[0]}"class="text-time">${dateTime[1]}</span>
 								</p>
 							</div>
@@ -161,7 +168,7 @@ function loadChatList() {
 						).innerHTML += `<li onclick= "startChat('${data.key}','${user.name}','${user.photoURL}')"
 														 		class="list-group-item list-group-item-action"
 																style="cursor: pointer"
-																id="chatList">
+																>
 																<div class="row" style="width: 100%">
 																	<div class="col-3 col-sm-3 col-md-3 col-lg-2">
 																	<img class="user-img" src="${user.photoURL}" alt="Profile Image"/>
@@ -181,8 +188,8 @@ function loadChatList() {
 		});
 	});
 }
-let messages;
-const textField = document.getElementById('txtmsg');
+// let messages;
+// const textField = document.getElementById('txtmsg');
 // !send mEssages functions here
 function sendMessage() {
 	let chatMessage = {
@@ -232,6 +239,52 @@ function sendMessage() {
 function iconSendMsg() {
 	sendMessage();
 }
+///////Send images
+
+function openImage() {
+	document.getElementById('imageFile').click();
+}
+function sendImage(event) {
+	let file = event.files[0];
+	if (!file.type.match('image.*')) {
+		alert('please Select Image Type only');
+	} else {
+		let reader = new FileReader();
+		reader.addEventListener(
+			'load',
+			function () {
+				let chatMessage = {
+					userId: currentUserKey,
+					msg: reader.result,
+					dateTime: new Date().toLocaleString(),
+				};
+				firebase
+					.database()
+					.ref('chatMessage')
+					.child(msgChatKey)
+					.push(chatMessage, function (error) {
+						if (error) {
+							alert(error);
+						} else {
+							document.getElementById('txtmsg').value = '';
+							document.getElementById('txtmsg').focus();
+						}
+					});
+			},
+			false
+		);
+		if (file) {
+			reader.readAsDataURL(file);
+		}
+	}
+}
+function openDocument() {
+	document.getElementById('documentFile').click();
+}
+function openCamera() {
+	document.getElementById('cameraFile').click();
+}
+
 // !Firebase
 // !
 function populateFriendList() {
