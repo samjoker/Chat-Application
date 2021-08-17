@@ -206,3 +206,17 @@ body {
 .foot {
 	color: #7f8283;
 }
+#emojiDiv {
+	background: white;
+	position: absolute;
+	top: -39vh;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+#emojiDiv #myTabContent {
+	height: 30vh;
+}
+#myTabContent a {
+	text-decoration: none;
+	cursor: pointer;
+}

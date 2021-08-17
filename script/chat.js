@@ -188,6 +188,13 @@ function loadChatList() {
 		});
 	});
 }
+// !SMily
+function openSmilyPannel() {
+	document.getElementById('emojiDiv').removeAttribute('style');
+}
+function closeSmilyPannel() {
+	document.getElementById('emojiDiv').setAttribute('style', 'display:none');
+}
 // let messages;
 // const textField = document.getElementById('txtmsg');
 // !send mEssages functions here
