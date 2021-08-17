@@ -189,6 +189,23 @@ function loadChatList() {
 	});
 }
 // !SMily
+loadSmily();
+function loadSmily() {
+	let emoji = '';
+	for (let i = 128512; i <= 128567; i++) {
+		emoji += ` <a herf="#" style="font-size:30px;" onclick="getEmoji(this)">&#${i};</a>`;
+	}
+	document.getElementById('smily').innerHTML = emoji;
+
+	let symbol = '';
+	for (let i = 8986; i <= 127744; i++) {
+		symbol += ` <a herf="#" style="font-size:30px;" onclick="getEmoji(this)">&#${i};</a>`;
+	}
+	document.getElementById('symbols').innerHTML = symbol;
+}
+function getEmoji(control) {
+	document.getElementById('txtmsg').value += control.innerHTML;
+}
 function openSmilyPannel() {
 	document.getElementById('emojiDiv').removeAttribute('style');
 }
