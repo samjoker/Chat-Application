@@ -365,14 +365,46 @@
 											></i>
 										</span>
 										<div class="dropdown-menu">
-											<a href="#" class="dropdown-item"
-												>Image</a
+											<a
+												href="#"
+												class="dropdown-item"
+												onclick="openImage()"
 											>
-											<a href="#" class="dropdown-item"
-												>Document</a
+												<input
+													id="imageFile"
+													onchange="sendImage(this)"
+													type="file"
+													accept="image/*"
+													style="display: none"
+												/>
+												Image</a
 											>
-											<a href="#" class="dropdown-item"
-												>Camera</a
+											<a
+												href="#"
+												class="dropdown-item"
+												onclick="openDocument()"
+											>
+												<input
+													id="documentFile"
+													type="file"
+													accept="*"
+													style="display: none"
+												/>
+												Document</a
+											>
+											<a
+												href="#"
+												class="dropdown-item"
+												onclick="openCamera()"
+											>
+												<input
+													id="cameraFile"
+													type="file"
+													accept="image"
+													capture="capture/*"
+													style="display: none"
+												/>
+												Camera</a
 											>
 											<a href="#" class="dropdown-item"
 												>Music</a
