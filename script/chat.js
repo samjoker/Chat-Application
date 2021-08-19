@@ -189,8 +189,8 @@ function loadChatList() {
 	});
 }
 // !SMily
-loadSmily();
-function loadSmily() {
+loadEmoji();
+function loadEmoji() {
 	let emoji = '';
 	for (let i = 128512; i <= 128567; i++) {
 		emoji += ` <a herf="#" style="font-size:30px;" onclick="getEmoji(this)">&#${i};</a>`;
@@ -198,10 +198,16 @@ function loadSmily() {
 	document.getElementById('smily').innerHTML = emoji;
 
 	let symbol = '';
-	for (let i = 8986; i <= 127744; i++) {
-		symbol += ` <a herf="#" style="font-size:30px;" onclick="getEmoji(this)">&#${i};</a>`;
+	for (let i = 128001; i <= 128210; i++) {
+		symbol += ` <a herf="#" style="font-size:20px;" onclick="getEmoji(this)">&#${i};</a>`;
 	}
 	document.getElementById('symbols').innerHTML = symbol;
+
+	let books = '';
+	for (let i = 128211; i <= 128511; i++) {
+		books += ` <a herf="#" style="font-size:20px;" onclick="getEmoji(this)">&#${i};</a>`;
+	}
+	document.getElementById('books').innerHTML = books;
 }
 function getEmoji(control) {
 	document.getElementById('txtmsg').value += control.innerHTML;

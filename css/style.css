@@ -220,3 +220,8 @@ body {
 	text-decoration: none;
 	cursor: pointer;
 }
+
+#myTabContent {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
