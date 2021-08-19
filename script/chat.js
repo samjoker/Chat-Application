@@ -188,6 +188,19 @@ function loadChatList() {
 		});
 	});
 }
+function sendIconOpen(control) {
+	if (control.value != '') {
+		document.getElementById('sendIcon').removeAttribute('style');
+		document
+			.getElementById('microPhone')
+			.setAttribute('style', 'display:none');
+	} else {
+		document.getElementById('microPhone').removeAttribute('style');
+		document
+			.getElementById('sendIcon')
+			.setAttribute('style', 'display:none');
+	}
+}
 // !SMily
 loadEmoji();
 function loadEmoji() {

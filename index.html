@@ -513,6 +513,7 @@
 									"
 								>
 									<input
+										onkeyup="sendIconOpen(this)"
 										onfocus="closeSmilyPannel()"
 										id="txtmsg"
 										size="50"
@@ -521,30 +522,32 @@
 										class="form-control form-rounded"
 									/>
 								</div>
-								<div
+								<!-- <div
 									class="
 										col-1 col-sm-1 col-md-1 col-lg-1
 										send-icon
 									"
+								></div> -->
+								<div
+									class="
+										col-1 col-sm-1 col-md-1 col-lg-1
+										mt-2
+										ml-2
+										micro
+									"
 								>
 									<span
+										id="sendIcon"
 										onclick="iconSendMsg()"
 										class="
 											fab
 											fa-telegram-plane fa-2x
 											tele-Send
 										"
+										style="display: none"
 									></span>
-								</div>
-								<div
-									class="
-										col-1 col-sm-1 col-md-1 col-lg-1
-										mt-2
-										ml-0
-										micro
-									"
-								>
 									<span
+										id="microPhone"
 										class="foot fas fa-microphone fa-2x"
 									></span>
 								</div>
