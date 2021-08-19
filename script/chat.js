@@ -1,5 +1,6 @@
 let currentUserKey = '';
 let msgChatKey = '';
+let friend_id = '';
 
 // !CHat functions
 function startChat(friendKey, friendName, friendPhoto) {
@@ -7,7 +8,7 @@ function startChat(friendKey, friendName, friendPhoto) {
 		friendId: friendKey,
 		userId: currentUserKey,
 	};
-
+	friend_id = friendKey;
 	let db = firebase.database().ref('friend_list');
 	let flag = false;
 	db.on('value', function (friends) {
@@ -248,33 +249,39 @@ function sendMessage() {
 			if (error) {
 				alert(error);
 			} else {
-				// 	let messages = `<div class="row justify-content-end">
-				// 	<div class="col-6 col-sm-7 col-md-7 col-lg-6">
-				// 		<p class="sent-msg">
-				// 		${document.getElementById('txtmsg').value}
-				// 		<span
-				// 				class="text-time"
-				// 				>12:00pm</span
-				// 			>
-				// 		</p>
-				// 	</div>
-				// 	<div class="col-2 col-sm-1 col-md-1">
-				// 		<img
-				// 			src="${firebase.auth().currentUser.photoURL}"
-				// 			alt="User-img"
-				// 			class="user-chat-img"
-				// 		/>
-				// 	</div>
-				// </div>`;
-				// 	document.getElementById('enterMessage').innerHTML += messages;
+				firebase
+					.database()
+					.ref('fcmTokens')
+					.child(friend_id)
+					.once('value')
+					.then(function (data) {
+						$.ajax({
+							url: 'https://fcm.googleapis.com/fcm/send',
+							method: 'POST',
+							headers: {
+								'content-type': 'application/json',
+								Authorization:
+									'key=AAAAbPKKPnc:APA91bHAg2a_9tB8M0g77IQcmVqnjQ-KvwYM0gwURyWri2sfRa8G04rHMVlCE9BfLzEd0QisjGK_r2SlRkU_GVPXo4V98L874UUEQVPEHtf_uYt7Dseo4xedsudd-7yBJ5jGyxhxR8-P',
+							},
+							data: JSON.stringify({
+								to: data.val().token_id,
+								data: {
+									message:
+										chatMessage.msg.substring(0, 30) +
+										'.....',
+									img: firebase.auth().currentUser.photoURL,
+								},
+								success: function (response) {
+									console.log(response);
+								},
+								error: function (xhr, textStatus, error) {
+									console.log(xhr.error);
+								},
+							}),
+						});
+					});
 				document.getElementById('txtmsg').value = '';
 				document.getElementById('txtmsg').focus();
-				// 	document
-				// 		.getElementById('enterMessage')
-				// 		.scrollTo(
-				// 			0,
-				// 			document.getElementById('enterMessage').clientHeight
-				// 		);
 			}
 		});
 }
@@ -421,7 +428,19 @@ function onStateChanged(user) {
 				document.getElementById('lknSignIn').style = 'display:none';
 				document.getElementById('lknSignOut').style = '';
 			}
-
+			const messaging = firebase.messaging();
+			messaging
+				.requestPermission()
+				.then(function () {
+					return messaging.getToken();
+				})
+				.then(function (token) {
+					firebase
+						.database()
+						.ref('fcmTokens')
+						.child(currentUserKey)
+						.set({ token_id: token });
+				});
 			document.getElementById('lnkNewChat').classList.remove('disabled');
 			// document.getElementById('chat-startup').classList.add('d-none');
 			// document.getElementById('contact-list').classList.remove('d-none');
